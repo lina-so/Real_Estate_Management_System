@@ -23,6 +23,8 @@ class CreateReservesTable extends Migration
 
             $table->bigInteger('real_id')->unsigned();
             $table->foreign('real_id')->references('id')->on('realestates')->onDelete('cascade');
+
+            $table->integer('rama');
         });
     }
 
