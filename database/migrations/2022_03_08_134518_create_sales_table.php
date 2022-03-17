@@ -16,11 +16,15 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('s_id');
             $table->double('price');
+            $table->boolean('is_sales')->default(0);
             $table->timestamps();
 
             $table->bigInteger('user_id')->unsigned();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            
+            $table->bigInteger('real_id')->unsigned();
+            $table->foreign('real_id')->references('id')->on('realestates')->onDelete('cascade');
         });
     }
 

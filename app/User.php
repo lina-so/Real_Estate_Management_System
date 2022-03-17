@@ -53,12 +53,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Sales' , 'user_id');
     }
 
-    public function Realestates(){
-        return $this->belongsToMany('App\Realestate', 'Reserves', 'real_id', 'user_id'); 
-     }
+    // public function Desire(){
+    //     return $this->hasMany('App\Desire' , 'user_id');
+    // }
 
-     public function Realestatss(){
-        return $this->belongsToMany('App\Realestate', 'Favoraites', 'real_id', 'user_id'); 
-     }
+    // public function Realestates(){
+    //     return $this->belongsToMany('App\Realestate', 'Reserves', 'real_id', 'user_id'); 
+    //  }
+
+    //  public function Realestatss(){
+    //     return $this->belongsToMany('App\Realestate', 'Favoraites', 'real_id', 'user_id'); 
+    //  }
 
 }

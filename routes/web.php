@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('show');
+// });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Realestate Routes
+Route::get('/Add', 'RealestateController@create')->name('Add-realestate');
+Route::post('/Add','RealestateController@store')->name('store-realestate');

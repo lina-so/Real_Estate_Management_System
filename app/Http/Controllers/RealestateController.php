@@ -14,7 +14,9 @@ class RealestateController extends Controller
      */
     public function index()
     {
-        //
+        // $realestate = Realestate::all(); 
+        $reals = Realestate::latest()->paginate(8); 
+        return view('show' , compact(['reals']));
     }
 
     /**
@@ -24,7 +26,8 @@ class RealestateController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Add');
+      
     }
 
     /**
@@ -34,8 +37,55 @@ class RealestateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+        // $request->validate([
+        // 'location'  => 'required',
+        // 'city' => 'required',
+        // 'floor' => 'required',
+        // 'area' => 'required',
+        // 'price' => 'required',
+        // 'number_of_rooms' => 'required',
+        // 'number_of_path_rooms' => 'required',
+        // 'type' => 'required',
+        // 'state' => 'required',
+        // 'property_type' => 'required',
+        // ]);
+
+        // $real = Realestate::create($request->all());
+
+        // //process image
+        // $image = 'real_' . rand() . $request->image->getClintOriginalExtension();
+        // $real->image = $image;
+        // $request->image->move('upload/user-real',$image);
+        
+        // return redirect()->route('show')->with('success','property added successfully');
+        // return $product;
+
+
+        $real = new  Realestate;
+        $real->location  = $request->location;
+        $real->city  = $request->city;
+        $real->floor  = $request->floor;
+        $real->area  = $request->area;
+        $real->price  = $request->price;
+        $real->number_of_rooms  = $request->number_of_rooms;
+        $real->number_of_path_rooms  = $request->number_of_path_rooms;
+        $real->state  = $request->state;
+        $real->type  = $request->type;
+        $real->property_type  = $request->property_type;
+
+        //Process image : 
+        if(isset($request->image)){
+
+            $image_name = rand() . "." . $request->image->getClientOriginalExtension();
+            $real->image = $image_name;
+            $request->image->move('upload/user-real', $image_name);
+            }
+
+        $real->user_id  = $request->user_id ;
+
+        $real->save();
+        return redirect()->route('show')->with('success','property added successfully');
     }
 
     /**
@@ -46,7 +96,7 @@ class RealestateController extends Controller
      */
     public function show(Realestate $realestate)
     {
-        //
+        return view('show',compact('realestate'));
     }
 
     /**
@@ -57,7 +107,7 @@ class RealestateController extends Controller
      */
     public function edit(Realestate $realestate)
     {
-        //
+        return view('edit' , compact('realestate'));
     }
 
     /**
@@ -67,9 +117,25 @@ class RealestateController extends Controller
      * @param  \App\Realestate  $realestate
      * @return \Illuminate\Http\Response
      */
+    
+    
+
     public function update(Request $request, Realestate $realestate)
     {
-        //
+        $request->validate([
+            'location'  => 'required',
+            'city' => 'required',
+            'floor' => 'required',
+            'area' => 'required',
+            'price' => 'required',
+            'number_of_rooms' => 'required',
+            'number_of_path_rooms' => 'required',
+            'type' => 'required',
+            'property_type' => 'required',
+        ]);
+
+        $real = Realestate::update($request->all());
+        return redirect()->route('show')->with('success','property updated successfully');
     }
 
     /**
@@ -78,8 +144,10 @@ class RealestateController extends Controller
      * @param  \App\Realestate  $realestate
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Realestate $realestate)
     {
-        //
+        $realestate->delete();
+        return redirect()->route('show')->with('success','property deleted successfully');
     }
 }

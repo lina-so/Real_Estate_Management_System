@@ -16,14 +16,15 @@ class CreateRealestatesTable extends Migration
         Schema::create('realestates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('location');
-            $table->string('city');
+            $table->string('city')->default('Damascus');;
             $table->integer('floor');
-            $table->integer('area');
-            $table->double('price');
-            $table->integer('number_of_rooms');
-            $table->integer('number_of_path_rooms');
+            $table->integer('area')->nullable();
+            $table->double('price')->nullable();
+            $table->integer('number_of_rooms')->nullable();;
+            $table->integer('number_of_path_rooms')->nullable();;
             $table->boolean('is_sales')->default(0);
             $table->boolean('is_rent')->default(0);
+            $table->boolean('is_favoraite')->default(0);
             $table->enum('state' , ["sale" , "rent" ])->default('sale');
             $table->enum('type' , ["tabo" , "court" ])->default('tabo');
             $table->enum('property_type', ["villa" , "flat","land","shop" ])->default('flat');

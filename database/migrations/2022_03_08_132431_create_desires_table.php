@@ -16,15 +16,15 @@ class CreateDesiresTable extends Migration
         Schema::create('desires', function (Blueprint $table) {
             $table->bigIncrements('desire_id');
             $table->string('location');
-            $table->string('city');
+            $table->string('city')->default('Damascus');
             $table->integer('floor');
-            $table->integer('area');
-            $table->double('price');
-            $table->integer('number_of_rooms');
-            $table->integer('number_of_path_rooms');
+            $table->integer('area')->nullable();
+            $table->double('price')->nullable();
+            $table->integer('number_of_rooms')->nullable();
+            $table->integer('number_of_path_rooms')->nullable();
             $table->enum('state' , ["for_sale" , "for_rent" ])->default('for_sale');
             $table->enum('type' , ["tabo" , "court" ])->default('tabo');
-            $table->enum('property_type', ["villa" , "flat","land","محل تجاري" ])->default('flat');
+            $table->enum('property_type', ["villa" , "flat","land","shop" ])->default('flat');
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ class CreateReservesTable extends Migration
     public function up()
     {
         Schema::create('reserves', function (Blueprint $table) {
+            $table->id();
             $table->integer('period');
             $table->timestamps();
 
