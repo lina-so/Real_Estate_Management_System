@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->enum('role' , ["admin" , "user" ])->default('user');
             $table->enum('type' , ["saler" , "buyer" ])->default('buyer');
-            $table->boolean('active');
+            $table->boolean('active')->default('0');
             $table->timestamps();
 
 

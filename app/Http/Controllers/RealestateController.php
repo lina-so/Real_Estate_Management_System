@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Realestate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RealestateController extends Controller
 {
@@ -37,31 +38,7 @@ class RealestateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-        // $request->validate([
-        // 'location'  => 'required',
-        // 'city' => 'required',
-        // 'floor' => 'required',
-        // 'area' => 'required',
-        // 'price' => 'required',
-        // 'number_of_rooms' => 'required',
-        // 'number_of_path_rooms' => 'required',
-        // 'type' => 'required',
-        // 'state' => 'required',
-        // 'property_type' => 'required',
-        // ]);
-
-        // $real = Realestate::create($request->all());
-
-        // //process image
-        // $image = 'real_' . rand() . $request->image->getClintOriginalExtension();
-        // $real->image = $image;
-        // $request->image->move('upload/user-real',$image);
-        
-        // return redirect()->route('show')->with('success','property added successfully');
-        // return $product;
-
-
+    {
         $real = new  Realestate;
         $real->location  = $request->location;
         $real->city  = $request->city;
@@ -73,6 +50,7 @@ class RealestateController extends Controller
         $real->state  = $request->state;
         $real->type  = $request->type;
         $real->property_type  = $request->property_type;
+        $real->user_id = Auth::id();
 
         //Process image : 
         if(isset($request->image)){
@@ -82,7 +60,7 @@ class RealestateController extends Controller
             $request->image->move('upload/user-real', $image_name);
             }
 
-        $real->user_id  = $request->user_id ;
+     
 
         $real->save();
         return redirect()->route('show')->with('success','property added successfully');
