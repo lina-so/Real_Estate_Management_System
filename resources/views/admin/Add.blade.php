@@ -69,8 +69,13 @@
                                 <option value="taboo">taboo</option>
                             </select>
                         </div>
+						<div class="inputBox">
+							<label for="">Cover</label>
+                            <input type="file" id="image" name="cover"  >  
+                        </div>
                         <div class="inputBox">
-                            <input type="file" id="image" name="image"  >  
+							<label for="">Images</label>
+                            <input type="file" id="image" name="image[]" multiple >  
                         </div>
 						<div class="save">
                             <button type="submit">save</button>

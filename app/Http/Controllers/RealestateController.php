@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Realestate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Storage;
 
 class RealestateController extends Controller
 {
@@ -53,17 +54,45 @@ class RealestateController extends Controller
         $real->user_id = Auth::id();
 
         //Process image : 
-        if(isset($request->image)){
+        // if(isset($request->image)){
 
-            $image_name = rand() . "." . $request->image->getClientOriginalExtension();
-            $real->image = $image_name;
-            $request->image->move('upload/user-real', $image_name);
+        //     $image_name = rand() . "." . $request->image->getClientOriginalExtension();
+        //     $real->image = $image_name;
+        //     $request->image->move('upload/user-real', $image_name);
+        //     }
+
+        if($request->hasFile("cover"))
+        {
+            $file=$request->file("cover");
+            $image_name=time().'.'.$file->getClientOriginalExtension();
+            $real->cover = $image_name;
+            $file->move('upload/cover', $image_name);
+        }
+
+       
+
+        if($request->hasFile("image"))
+        {
+            $file=$request->file("image");
+            foreach($file as $files)
+            {
+                $filename = $files->getClientOriginalName();
+                $extension = $files->getClientOriginalExtension();
+                $image_name = time().'.'.$files->getClientOriginalExtension();
+                $request['user_id']=$real->id;
+                $request['image']=$image_name;
+                $real->image = $image_name;
+                // $files->move('upload/images', $image_name);
+                Storage::put($files->getClientOriginalName(), file_get_contents($files));
+                  
             }
-
-     
+        }
+        
 
         $real->save();
-        return redirect()->route('show')->with('success','property added successfully');
+        return $request;
+        // return redirect()->route('show')->with('success','property added successfully');
+
     }
 
     /**

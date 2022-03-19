@@ -28,7 +28,8 @@ class CreateRealestatesTable extends Migration
             $table->enum('state' , ["sale" , "rent" ])->default('sale');
             $table->enum('type' , ["tabo" , "court" ])->default('tabo');
             $table->enum('property_type', ["villa" , "flat","land","shop" ])->default('flat');
-            $table->string('image');
+            $table->text('cover');
+            $table->text('image');
             $table->timestamps();
 
 
