@@ -54,15 +54,8 @@ class RealestateController extends Controller
         $real->property_type  = $request->property_type;
         $real->user_id = Auth::id();
 
-        if($request->hasFile("cover"))
-        {
-            $file=$request->file("cover");
-            $image_name=time().'.'.$file->getClientOriginalExtension();
-            $real->cover = $image_name;
-            $file->move('upload/cover', $image_name);
-        }
-
-       
+  
+       //process upload images
 
         if($request->hasFile("image"))
         {
@@ -70,19 +63,29 @@ class RealestateController extends Controller
             foreach($file as $files)
             {
                 $filename = $files->getClientOriginalName();
-                $extension = $files->getClientOriginalExtension();
+            
                 $image_name = time().'.'.$files->getClientOriginalExtension();
                 $request['user_id']=$real->id;
                 $request['image']=$image_name;
                 $real->image = $image_name;
-                // $files->move('upload/images', $image_name);
+        
                 $des='/images/'.Auth::user()->name.'_'.time();
                 $files->storeAs($des,$filename);
-              
-                
+
+
             }
         }
         
+        //process cover image
+
+        if($request->hasFile("cover"))
+        {
+            $file=$request->file("cover");
+            $image_name='cover' .'.'.$files->getClientOriginalExtension();
+            $real->cover = $image_name;
+            $files->storeAs($des, $image_name);
+        }
+
         $real->save();
         return $request;
         // return redirect()->route('show')->with('success','property added successfully');
