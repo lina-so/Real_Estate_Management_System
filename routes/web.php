@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('show');
-})->name('show');
+// Route::get('/', function () {
+//     return view('show');
+// })->name('show');
+
+Route::get('/', 'RealestateController@index')->name('show');;
 
 Auth::routes();
 
 //Realestate Routes
 Route::get('/Add', 'RealestateController@create')->name('Add-realestate');
 Route::post('/Add','RealestateController@store')->name('store-realestate');
+
+

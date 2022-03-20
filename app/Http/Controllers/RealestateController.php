@@ -17,7 +17,7 @@ class RealestateController extends Controller
      */
     public function index()
     {
-        // $realestate = Realestate::all(); 
+        // $reals = Realestate::all(); 
         $reals = Realestate::latest()->paginate(8); 
         return view('show' , compact(['reals']));
     }
@@ -81,14 +81,16 @@ class RealestateController extends Controller
         if($request->hasFile("cover"))
         {
             $file=$request->file("cover");
+            // $image = Realestate::where('user_id', '=', Auth::user()->id)->get();
             $image_name='cover' .'.'.$files->getClientOriginalExtension();
             $real->cover = $image_name;
             $files->storeAs($des, $image_name);
         }
 
         $real->save();
-        return $request;
-        // return redirect()->route('show')->with('success','property added successfully');
+        // return $request;
+        // return Redirect::route('clients.show, $id')->with( ['data' => $data] );
+        return redirect()->route('show')->with(['userFolderName' => $des] );
 
     }
 

@@ -37,16 +37,16 @@
 							<input type="text" placeholder="City" name="city">
 						</div>
 						<div class="inputBox">
-							<input type="number" placeholder="Area" name="Area">
+							<input type="number" placeholder="Area" name="area">
 						</div>
 						<div class="inputBox">
 							<input type="number" step=0.01  placeholder="price" name="price">
 						</div>
 						<div class="inputBox">
-							<input type="number" placeholder="Number of Rooms" name="Number of Rooms">
+							<input type="number" placeholder="Number of Rooms" name="number_of_rooms">
 						</div>
 						<div class="inputBox">
-							<input type="number" placeholder="Number of PathRooms" name="Number of PathRooms">
+							<input type="number" placeholder="Number of PathRooms" name="number_of_path_rooms">
 						</div>
 
                         <div class="inputBox">
