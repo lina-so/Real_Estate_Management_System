@@ -6,6 +6,7 @@ use App\Realestate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Storage;
+use File;
 
 class RealestateController extends Controller
 {
@@ -53,14 +54,6 @@ class RealestateController extends Controller
         $real->property_type  = $request->property_type;
         $real->user_id = Auth::id();
 
-        //Process image : 
-        // if(isset($request->image)){
-
-        //     $image_name = rand() . "." . $request->image->getClientOriginalExtension();
-        //     $real->image = $image_name;
-        //     $request->image->move('upload/user-real', $image_name);
-        //     }
-
         if($request->hasFile("cover"))
         {
             $file=$request->file("cover");
@@ -83,12 +76,13 @@ class RealestateController extends Controller
                 $request['image']=$image_name;
                 $real->image = $image_name;
                 // $files->move('upload/images', $image_name);
-                Storage::put($files->getClientOriginalName(), file_get_contents($files));
-                  
+                $des='/images/'.Auth::user()->name.'_'.time();
+                $files->storeAs($des,$filename);
+              
+                
             }
         }
         
-
         $real->save();
         return $request;
         // return redirect()->route('show')->with('success','property added successfully');
