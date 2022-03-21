@@ -72,8 +72,8 @@
                         <a href=""> <li>E/N</li></a>
                         <a href=""><li>more
                             <ul>
-                               <a href=""><li>add realestate</li></a>
-                               <a href=""><li>show your realestate</li></a>
+                               <a href="{{ route('Add-realestate') }}"><li>add realestate</li></a>
+                               <a href="{{ route('your_real') }}"><li>show your realestate</li></a>
                                <a href=""><li>Rent/Sale</li></a>
                             </ul>
                         </li>

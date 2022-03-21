@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('show');
 // })->name('show');
 
-Route::get('/', 'RealestateController@index')->name('show');;
+Route::get('/', 'RealestateController@index')->name('show');
 
 Auth::routes();
 
@@ -25,4 +25,10 @@ Auth::routes();
 Route::get('/Add', 'RealestateController@create')->name('Add-realestate');
 Route::post('/Add','RealestateController@store')->name('store-realestate');
 
+//Edit realestate Routes
+Route::get('/edit', 'RealestateController@edit')->name('edit-realestate');
+Route::post('/edit/{id}','RealestateController@update')->name('update-realestate');
+
+// your Real
+Route::get('/yourReal', 'ViewsController@yourReal')->name('your_real');
 

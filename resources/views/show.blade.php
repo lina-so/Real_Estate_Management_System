@@ -8,7 +8,7 @@
             <div class="container1 item">
                 <div class="listing-item">
                     <div class="left-image">
-                    <a href="#"><img src="{{asset('storage/app/images/'.$real->userFolderName)}}" alt=""></a>
+                    <a href="#"><img src="{{asset('storage/app/images/'.$real->userFolderName . '/cover.jpg')}}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                     <a href="#"><h4>{{$real->property_type }}</h4></a>

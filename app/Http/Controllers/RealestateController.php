@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Realestate;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Storage;
 use File;
+
 
 class RealestateController extends Controller
 {
@@ -18,8 +20,9 @@ class RealestateController extends Controller
     public function index()
     {
         // $reals = Realestate::all(); 
+        $user=User::with('Realestats')->get();
         $reals = Realestate::latest()->paginate(8); 
-        return view('show' , compact(['reals']));
+        return view('show' , compact(['reals'],'user'));
     }
 
     /**
@@ -56,6 +59,7 @@ class RealestateController extends Controller
 
   
        //process upload images
+        $des='/images/'.Auth::user()->name.'_'.time();
 
         if($request->hasFile("image"))
         {
@@ -69,12 +73,14 @@ class RealestateController extends Controller
                 $request['image']=$image_name;
                 $real->image = $image_name;
         
-                $des='/images/'.Auth::user()->name.'_'.time();
+                // $des='/images/'.Auth::user()->name.'_'.time();
                 $files->storeAs($des,$filename);
 
 
             }
         }
+
+        
         
         //process cover image
 
@@ -88,7 +94,9 @@ class RealestateController extends Controller
         }
 
         $real->save();
+        // return $des;
         // return $request;
+        // return redirect()->route('show');
         // return Redirect::route('clients.show, $id')->with( ['data' => $data] );
         return redirect()->route('show')->with(['userFolderName' => $des] );
 
@@ -102,6 +110,7 @@ class RealestateController extends Controller
      */
     public function show(Realestate $realestate)
     {
+
         return view('show',compact('realestate'));
     }
 
@@ -111,8 +120,9 @@ class RealestateController extends Controller
      * @param  \App\Realestate  $realestate
      * @return \Illuminate\Http\Response
      */
-    public function edit(Realestate $realestate)
+    public function edit(Realestate $id)
     {
+        $realestate=Realestate::find($id);
         return view('edit' , compact('realestate'));
     }
 
@@ -126,8 +136,10 @@ class RealestateController extends Controller
     
     
 
-    public function update(Request $request, Realestate $realestate)
+    public function update(Request $request, Realestate $id)
     {
+        $realestate=Realestate::find($id);
+
         $request->validate([
             'location'  => 'required',
             'city' => 'required',
@@ -135,10 +147,16 @@ class RealestateController extends Controller
             'area' => 'required',
             'price' => 'required',
             'number_of_rooms' => 'required',
-            'number_of_path_rooms' => 'required',
+            'number_of_path_rooms' => 'required', 
             'type' => 'required',
             'property_type' => 'required',
         ]);
+
+        // if(isset($request->location))
+        // {
+        //     $realestate->location=$request->location;
+        // }
+        // $realestate->save();
 
         $real = Realestate::update($request->all());
         return redirect()->route('show')->with('success','property updated successfully');
