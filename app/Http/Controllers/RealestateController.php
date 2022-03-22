@@ -20,9 +20,9 @@ class RealestateController extends Controller
     public function index()
     {
         // $reals = Realestate::all(); 
-        $user=User::with('Realestats')->get();
+        // $user=User::with('Realestats')->get();
         $reals = Realestate::latest()->paginate(8); 
-        return view('show' , compact(['reals'],'user'));
+        return view('show' , compact(['reals']));
     }
 
     /**
