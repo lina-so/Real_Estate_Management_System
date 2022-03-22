@@ -30,5 +30,5 @@ Route::get('/edit', 'RealestateController@edit')->name('edit-realestate');
 Route::post('/edit/{id}','RealestateController@update')->name('update-realestate');
 
 // your Real
-Route::get('/yourReal', 'ViewsController@yourReal')->name('your_real');
+Route::get('/yourReal/{id}', 'ViewsController@yourReal')->name('your_real');
 

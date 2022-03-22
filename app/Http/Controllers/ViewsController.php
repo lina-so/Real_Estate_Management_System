@@ -14,12 +14,15 @@ class ViewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function yourReal()
+    public function yourReal($id)
     {
         $user=Auth::user();
         // $user = User::where('id', $id)->first();
-        $realestates = Realestate::where('user_id', $user->id)->orderBy('id','desc')->get();
-        dd($realestates);
+        // $realestates = Realestate::where('user_id', $user->id)->orderBy('id','desc')->get();
+        $realestates = Realestate::whereHas('user', function($q) use($id) {
+            $q->where('id', $id);
+        })->get();
+        // dd($realestates);
         return view('yourReal' , compact('realestates','user'));
     }
 
