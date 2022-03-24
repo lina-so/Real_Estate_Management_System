@@ -21,13 +21,13 @@ Route::get('/', 'RealestateController@index')->name('show');
 
 Auth::routes();
 
-//Realestate Routes
+//Add Realestate Routes
 Route::get('/Add', 'RealestateController@create')->name('Add-realestate');
 Route::post('/Add','RealestateController@store')->name('store-realestate');
 
 //Edit realestate Routes
-Route::get('/edit', 'RealestateController@edit')->name('edit-realestate');
-Route::post('/edit/{id}','RealestateController@update')->name('update-realestate');
+Route::get('/edit/{id}', 'RealestateController@edit')->name('edit-realestate');
+Route::put('/edit/{id}','RealestateController@update')->name('update-realestate');
 
 // your Real
 Route::get('/yourReal/{id}', 'ViewsController@yourReal')->name('your_real');

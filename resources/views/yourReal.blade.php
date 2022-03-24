@@ -28,7 +28,12 @@
                         <li><img src="images/listing-icon-03.png" alt=""> {{$realestate->number_of_path_rooms}} Bathrooms</li>
                     </ul>
                     <div class="main-white-button">
-                        <a href="contact.html"><i class="fa fa-eye"></i>View Details</a>
+                        <div class="content">
+                            <a href="contact.html"><i class="fa fa-eye"></i>View Details</a>
+                        </div>
+                        <div class="content">
+                            <a href="{{route('update-realestate',$realestate->id)}}"><i class=""></i>Edit</a>
+                        </div>
                     </div>
                     </div>
                 </div>

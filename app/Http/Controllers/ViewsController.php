@@ -17,8 +17,6 @@ class ViewsController extends Controller
     public function yourReal($id)
     {
         $user=Auth::user();
-        // $user = User::where('id', $id)->first();
-        // $realestates = Realestate::where('user_id', $user->id)->orderBy('id','desc')->get();
         $realestates = Realestate::whereHas('user', function($q) use($id) {
             $q->where('id', $id);
         })->get();

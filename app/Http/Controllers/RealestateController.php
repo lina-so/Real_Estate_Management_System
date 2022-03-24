@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Storage;
 use File;
-
+// use Illuminate\Support\Facades\Storage;
 
 class RealestateController extends Controller
 {
@@ -19,8 +19,6 @@ class RealestateController extends Controller
      */
     public function index()
     {
-        // $reals = Realestate::all(); 
-        // $user=User::with('Realestats')->get();
         $reals = Realestate::latest()->paginate(8); 
         return view('show' , compact(['reals']));
     }
@@ -123,6 +121,11 @@ class RealestateController extends Controller
     public function edit(Realestate $id)
     {
         $realestate=Realestate::find($id);
+        // $realestate=Realestate::findOrFail($id);
+        // echo '<pre>';
+        // print_r($realestate);
+        // die();
+        // dd($realestate);
         return view('edit' , compact('realestate'));
     }
 
@@ -136,9 +139,11 @@ class RealestateController extends Controller
     
     
 
-    public function update(Request $request, Realestate $id)
+    public function update(Request $request,  $id)
     {
+        
         $realestate=Realestate::find($id);
+        // $realestate=Realestate::findOrFail($id);
 
         $request->validate([
             'location'  => 'required',
@@ -152,14 +157,72 @@ class RealestateController extends Controller
             'property_type' => 'required',
         ]);
 
-        // if(isset($request->location))
-        // {
-        //     $realestate->location=$request->location;
-        // }
-        // $realestate->save();
+        // $data=array(
+        //     'location'  => $request->input('location'),
+        //     'city' => $request->input('city'),
+        //     'floor' => $request->input('floor'),
+        //     'area' => $request->input('area'),
+        //     'price' => $request->input('price'),
+        //     'number_of_rooms' => $request->input('number_of_rooms'),
+        //     'number_of_path_rooms' => $request->input('number_of_path_rooms'), 
+        //     'type' => $request->input('type'),
+        //     'property_type' => $request->input('property_type'),
+        // );
+        $realestate->location=$request->location;
+        $realestate->city=$request->city;
+        $realestate->floor=$request->floor;
+        $realestate->area=$request->area;
+        $realestate->price=$request->price;
+        $realestate->number_of_rooms=$request->number_of_rooms;
+        $realestate->number_of_path_rooms=$request->number_of_path_rooms;
+        $realestate->type=$request->type;
+        $realestate->property_type=$request->property_type;
 
-        $real = Realestate::update($request->all());
+        //  update upload images
+         $des='/images/'.Auth::user()->name.'_'.time();
+
+         if($request->hasFile("image"))
+         {
+             $file=$request->file("image");
+             foreach($file as $files)
+             {
+                 $filename = $files->getClientOriginalName();
+             
+                 $image_name = time().'.'.$files->getClientOriginalExtension();
+                 $request['user_id']=$realestate->id;
+                 $request['image']=$image_name;
+                 $old_image=$realestate->image;
+                //  File::delete(public_path('images/'. $oldFilename));
+                Storage::disk('public_uploads')->delete('public/app/images/'.$old_image);
+                 $realestate->image = $image_name;
+
+                 $files->storeAs($des,$filename);
+ 
+ 
+             }
+         }
+         
+         //update cover image
+ 
+         if($request->hasFile("cover"))
+         {
+             $file=$request->file("cover");
+             // $image = Realestate::where('user_id', '=', Auth::user()->id)->get();
+             $image_name='cover' .'.'.$files->getClientOriginalExtension();
+             $old_image=$realestate->cover;
+             //  File::delete(public_path('images/'. $oldFilename));
+             Storage::disk('public_uploads')->delete('public/app/images/'. $old_image);
+             $realestate->cover = $image_name;
+             $files->storeAs($des, $image_name);
+         }
+        $realestate->update();
+    
+        // DB::table('realestate')->where('id',$id)->update($data);
+        // $real = Realestate::update($request->all());
+        // return view('show');
+        // return redirect('show');
         return redirect()->route('show')->with('success','property updated successfully');
+
     }
 
     /**
