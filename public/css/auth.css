@@ -190,18 +190,18 @@ p{
 .form .inputBox .btn 
 {
 	padding: 8px;
-    width: 90px;
+    /* width: 90px; */
     outline: none;
     border: none;
     border-radius: 13px;
     color: gray;
     cursor: pointer;
-    margin-right: 68px;
+    margin-right: 15px;
 }
 .form .inputBox .btn .btn_send
 {
 	padding: 10px;
-    width: 210px;
+    width: 300px;
     outline: none;
     border: none;
     border-radius: 13px;

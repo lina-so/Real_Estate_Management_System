@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-    <link href="{{ asset('css/f3.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
 	<title>Glassmorphism Login Form</title>
 </head>
 <body>
