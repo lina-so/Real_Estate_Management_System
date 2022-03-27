@@ -19,13 +19,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/show.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/auth.css') }}" rel="stylesheet"> -->
 
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container2">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'LoGo') }}
                 </a>

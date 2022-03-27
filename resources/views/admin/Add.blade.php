@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container2">
         <div class="header-content">
             <p>Active Listings +1,500 Over</p>
             <h1>Finds Nearby Places & Things</h1>
@@ -12,44 +12,44 @@
         </div>
     </div>
 
-    <section>
+    <div class="section1">
 		<div class="color"></div>
 		<div class="color"></div>
 		<div class="color"></div>
-		<div class="box">
-			<div class="square" style="--i: 0;"></div>
+		<div class="box1">
+			<!-- <div class="square" style="--i: 0;"></div>
 			<div class="square" style="--i: 1;"></div>
 			<div class="square" style="--i: 2;"></div>
 			<div class="square" style="--i: 3;"></div>
-			<div class="square" style="--i: 4;"></div>
-			<div class="container">
-				<div class="form">
+			<div class="square" style="--i: 4;"></div> -->
+			<div class="container2">
+				<div class="form1">
 					<h2>Add Realestate</h2>
 					<form  action="/Add" method="POST" enctype="multipart/form-data">
                     @csrf
-						<div class="inputBox">
+						<div class="Box">
 							<input type="text" placeholder="location" name="location">
 						</div>
-						<div class="inputBox">
+						<div class="Box">
 							<input type="Number" placeholder="floor" name="floor">
 						</div>
-						<div class="inputBox">
+						<div class="Box">
 							<input type="text" placeholder="City" name="city">
 						</div>
-						<div class="inputBox">
+						<div class="Box">
 							<input type="number" placeholder="Area" name="area">
 						</div>
-						<div class="inputBox">
+						<div class="Box">
 							<input type="number" step=0.01  placeholder="price" name="price">
 						</div>
-						<div class="inputBox">
+						<div class="Box">
 							<input type="number" placeholder="Number of Rooms" name="number_of_rooms">
 						</div>
-						<div class="inputBox">
+						<div class="Box">
 							<input type="number" placeholder="Number of PathRooms" name="number_of_path_rooms">
 						</div>
 
-                        <div class="inputBox">
+                        <div class="Box">
                             <select name="property_type">
                                 <option value="Villa">Villa</option>
                                 <option value="Flat">Flat</option>
@@ -57,23 +57,23 @@
                                 <option value="Land">Land</option>
                             </select>
                         </div>
-                        <div class="inputBox">
+                        <div class="Box">
                             <select  name="state">
                                 <option value="Sale">Sale</option>
                                 <option value="Rent">Rent</option>
                             </select>
                         </div>
-                        <div class="inputBox">
+                        <div class="Box">
                             <select name="type">
                                 <option value="court">court</option>
                                 <option value="taboo">taboo</option>
                             </select>
                         </div>
-						<div class="inputBox">
+						<div class="Box">
 							<label for="">Cover</label>
                             <input type="file" id="image" name="cover"  >  
                         </div>
-                        <div class="inputBox">
+                        <div class="Box">
 							<label for="">Images</label>
                             <input type="file" id="image" name="image[]" multiple >  
                         </div>
@@ -85,6 +85,6 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 
 @endsection

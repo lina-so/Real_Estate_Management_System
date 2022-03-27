@@ -70,8 +70,7 @@ class RealestateController extends Controller
                 $request['user_id']=$real->id;
                 $request['image']=$image_name;
                 $real->image = $image_name;
-        
-                // $des='/images/'.Auth::user()->name.'_'.time();
+                
                 $files->storeAs($des,$filename);
 
 
@@ -85,7 +84,6 @@ class RealestateController extends Controller
         if($request->hasFile("cover"))
         {
             $file=$request->file("cover");
-            // $image = Realestate::where('user_id', '=', Auth::user()->id)->get();
             $image_name='cover' .'.'.$files->getClientOriginalExtension();
             $real->cover = $image_name;
             $files->storeAs($des, $image_name);
@@ -143,7 +141,6 @@ class RealestateController extends Controller
     {
         
         $realestate=Realestate::find($id);
-        // $realestate=Realestate::findOrFail($id);
 
         $request->validate([
             'location'  => 'required',
@@ -157,17 +154,7 @@ class RealestateController extends Controller
             'property_type' => 'required',
         ]);
 
-        // $data=array(
-        //     'location'  => $request->input('location'),
-        //     'city' => $request->input('city'),
-        //     'floor' => $request->input('floor'),
-        //     'area' => $request->input('area'),
-        //     'price' => $request->input('price'),
-        //     'number_of_rooms' => $request->input('number_of_rooms'),
-        //     'number_of_path_rooms' => $request->input('number_of_path_rooms'), 
-        //     'type' => $request->input('type'),
-        //     'property_type' => $request->input('property_type'),
-        // );
+    
         $realestate->location=$request->location;
         $realestate->city=$request->city;
         $realestate->floor=$request->floor;
@@ -192,7 +179,6 @@ class RealestateController extends Controller
                  $request['user_id']=$realestate->id;
                  $request['image']=$image_name;
                  $old_image=$realestate->image;
-                //  File::delete(public_path('images/'. $oldFilename));
                 Storage::disk('public_uploads')->delete('public/app/images/'.$old_image);
                  $realestate->image = $image_name;
 
@@ -207,20 +193,14 @@ class RealestateController extends Controller
          if($request->hasFile("cover"))
          {
              $file=$request->file("cover");
-             // $image = Realestate::where('user_id', '=', Auth::user()->id)->get();
              $image_name='cover' .'.'.$files->getClientOriginalExtension();
              $old_image=$realestate->cover;
-             //  File::delete(public_path('images/'. $oldFilename));
              Storage::disk('public_uploads')->delete('public/app/images/'. $old_image);
              $realestate->cover = $image_name;
              $files->storeAs($des, $image_name);
          }
         $realestate->update();
-    
-        // DB::table('realestate')->where('id',$id)->update($data);
-        // $real = Realestate::update($request->all());
-        // return view('show');
-        // return redirect('show');
+   
         return redirect()->route('show')->with('success','property updated successfully');
 
     }
