@@ -20,8 +20,14 @@ class ViewsController extends Controller
         $realestates = Realestate::whereHas('user', function($q) use($id) {
             $q->where('id', $id);
         })->get();
-        // dd($realestates);
         return view('yourReal' , compact('realestates','user'));
+    }
+
+    public function details($id)
+    {
+        $details=Realestate::find($id);
+        $type= gettype($details);
+        return view('details' , compact('details'));
     }
 
 }

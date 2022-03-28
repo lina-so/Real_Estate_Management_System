@@ -75,7 +75,7 @@
                         <a href=""><li>more
                             <ul>
                                <a href="{{ route('Add-realestate') }}"><li>add realestate</li></a>
-                               <a href=""><li>show your realestate</li></a>
+                               <a href="{{ route('your_real', $user->id) }}"><li>show your realestate</li></a>
                                <a href=""><li>Rent/Sale</li></a>
                             </ul>
                         </li>

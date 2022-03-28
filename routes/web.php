@@ -32,3 +32,12 @@ Route::put('/edit/{id}','RealestateController@update')->name('update-realestate'
 // your Real
 Route::get('/yourReal/{id}', 'ViewsController@yourReal')->name('your_real');
 
+//details view
+Route::get('/details/{id}', 'ViewsController@details')->name('details');
+
+/* view composer */
+View::composer(['*'],function($view)
+{
+  $user = Auth::user();
+  $view->with('user',$user);
+});

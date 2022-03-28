@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Storage;
 use File;
+use Carbon\Carbon;
+// namespace App\Http\Controllers\Carbon;
 // use Illuminate\Support\Facades\Storage;
 
 class RealestateController extends Controller
@@ -57,7 +59,10 @@ class RealestateController extends Controller
 
   
        //process upload images
-        $des='/images/'.Auth::user()->name.'_'.time();
+        $time = Carbon::now();
+
+        $format_time=$time->format('d-m-y').'_'.$time->format('H').'_'.$time->format('i').'_'.$time->format('m');
+        $des='/images/'.Auth::user()->name.'_'.$format_time;
 
         if($request->hasFile("image"))
         {
@@ -166,7 +171,11 @@ class RealestateController extends Controller
         $realestate->property_type=$request->property_type;
 
         //  update upload images
-         $des='/images/'.Auth::user()->name.'_'.time();
+        $time = Carbon::now();
+
+        $format_time=$time->format('d-m-y').'_'.$time->format('H').'_'.$time->format('i').'_'.$time->format('m');
+        $des='/images/'.Auth::user()->name.'_'.$format_time;
+
 
          if($request->hasFile("image"))
          {

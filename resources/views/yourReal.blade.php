@@ -29,7 +29,7 @@
                     </ul>
                     <div class="main-white-button">
                         <div class="content">
-                            <a href="contact.html"><i class="fa fa-eye"></i>View Details</a>
+                            <a href="{{route('details',$realestate->id)}}"><i class="fa fa-eye"></i>View Details</a>
                         </div>
                         <div class="content">
                             <a href="{{route('update-realestate',$realestate->id)}}"><i class=""></i>Edit</a>
