@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Realestate;
+use App\User;
 use App\Desire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DesireController extends Controller
 {
@@ -14,7 +17,7 @@ class DesireController extends Controller
      */
     public function index()
     {
-        //
+        return view('show');
     }
 
     /**
@@ -24,7 +27,7 @@ class DesireController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.AddDesire');
     }
 
     /**
@@ -35,7 +38,24 @@ class DesireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $desire = new  Desire;
+        $desire->location  = $request->location;
+        $desire->city  = $request->city;
+        $desire->floor  = $request->floor;
+        $desire->area  = $request->area;
+        $desire->price  = $request->price;
+        $desire->number_of_rooms  = $request->number_of_rooms;
+        $desire->number_of_path_rooms  = $request->number_of_path_rooms;
+        $desire->state  = $request->state;
+        $desire->type  = $request->type;
+        $desire->property_type  = $request->property_type;
+        $desire->user_id = Auth::id();
+        $desire->save();
+
+        // $desire->Desires()->attach($request);
+        // $desire->save();
+        return redirect()->route('show')->with('success','Desire Added successfully');
     }
 
     /**

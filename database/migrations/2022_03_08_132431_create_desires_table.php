@@ -14,18 +14,23 @@ class CreateDesiresTable extends Migration
     public function up()
     {
         Schema::create('desires', function (Blueprint $table) {
-            $table->bigIncrements('desire_id');
+            $table->bigIncrements('id');
             $table->string('location');
-            $table->string('city')->default('Damascus');
+            $table->string('city')->default('Damascus');;
             $table->integer('floor');
             $table->integer('area')->nullable();
             $table->double('price')->nullable();
-            $table->integer('number_of_rooms')->nullable();
+            $table->integer('number_of_rooms')->nullable();;
             $table->integer('number_of_path_rooms')->nullable();
-            $table->enum('state' , ["for_sale" , "for_rent" ])->default('for_sale');
+            $table->enum('state' , ["sale" , "rent" ])->default('sale');
             $table->enum('type' , ["tabo" , "court" ])->default('tabo');
             $table->enum('property_type', ["villa" , "flat","land","shop" ])->default('flat');
             $table->timestamps();
+
+            
+            $table->bigInteger('user_id')->unsigned();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

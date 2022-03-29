@@ -54,9 +54,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Sales' , 'user_id');
     }
 
-    // public function Desire(){
-    //     return $this->hasMany('App\Desire' , 'user_id');
-    // }
+    public function Desires(){
+     
+            return $this->hasMany('App\Desire' ,'user_id');
+        
+    }
 
     // public function Realestates(){
     //     return $this->belongsToMany('App\Realestate', 'Reserves', 'real_id', 'user_id'); 

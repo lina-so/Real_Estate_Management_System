@@ -11,7 +11,10 @@ class Desire extends Model
         'number_of_path_rooms',
     ];
 
-    // public function User(){
-    //     return $this->belongsTo('App\User' , 'user_id');
-    // }
+    public function user(){
+        return $this->belongsTo('App\User' , 'user_id');
+    }
+
+
+
 }

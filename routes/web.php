@@ -35,6 +35,12 @@ Route::get('/yourReal/{id}', 'ViewsController@yourReal')->name('your_real');
 //details view
 Route::get('/details/{id}', 'ViewsController@details')->name('details');
 
+
+
+//Add Desire Routes
+Route::get('/desire', 'DesireController@create')->name('Add-desire');
+Route::post('/desire','DesireController@store')->name('store-desire');
+
 /* view composer */
 View::composer(['*'],function($view)
 {
