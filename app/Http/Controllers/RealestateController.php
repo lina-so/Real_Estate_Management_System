@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Storage;
 use File;
 use Carbon\Carbon;
+use App\City;
+use DB;
+
 // namespace App\Http\Controllers\Carbon;
 // use Illuminate\Support\Facades\Storage;
 
@@ -32,7 +35,8 @@ class RealestateController extends Controller
      */
     public function create()
     {
-        return view('admin.Add');
+        $cities = DB::select('select * from cities');
+        return view('admin.Add',compact('cities'));
       
     }
 
@@ -42,11 +46,12 @@ class RealestateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     public function store(Request $request)
     {
         $real = new  Realestate;
-        $real->location  = $request->location;
-        $real->city  = $request->city;
+        $real->address  = $request->address;
         $real->floor  = $request->floor;
         $real->area  = $request->area;
         $real->price  = $request->price;
@@ -56,13 +61,28 @@ class RealestateController extends Controller
         $real->type  = $request->type;
         $real->property_type  = $request->property_type;
         $real->user_id = Auth::id();
+        $real->cities_id= $request->country;
+
 
   
        //process upload images
-        $time = Carbon::now();
+         $time = Carbon::now();
 
         $format_time=$time->format('d-m-y').'_'.$time->format('H').'_'.$time->format('i').'_'.$time->format('m');
-        $des='/images/'.Auth::user()->name.'_'.$format_time;
+        $des='/images/'.Auth::user()->name.'_'.Auth::id().'_'.$format_time;
+
+         //process cover image
+
+        if($request->hasFile("cover"))
+        {
+            $file=$request->file("cover");
+            // $image = Realestate::where('user_id', '=', Auth::user()->id)->get();
+            $image_name='cover' .'.'.$file->getClientOriginalExtension();
+            $real->cover = $image_name;
+          
+            $file->storeAs($des, $image_name);
+        }
+
 
         if($request->hasFile("image"))
         {
@@ -76,29 +96,17 @@ class RealestateController extends Controller
                 $request['image']=$image_name;
                 $real->image = $image_name;
                 
+                 // $files->storeAs('/images/', $filename);
+
                 $files->storeAs($des,$filename);
 
 
             }
         }
-
-        
-        
-        //process cover image
-
-        if($request->hasFile("cover"))
-        {
-            $file=$request->file("cover");
-            $image_name='cover' .'.'.$files->getClientOriginalExtension();
-            $real->cover = $image_name;
-            $files->storeAs($des, $image_name);
-        }
+   
+        $real->image_path=$des;
 
         $real->save();
-        // return $des;
-        // return $request;
-        // return redirect()->route('show');
-        // return Redirect::route('clients.show, $id')->with( ['data' => $data] );
         return redirect()->route('show')->with(['userFolderName' => $des] );
 
     }
@@ -124,12 +132,25 @@ class RealestateController extends Controller
     public function edit(Realestate $id)
     {
         $realestate=Realestate::find($id);
-        // $realestate=Realestate::findOrFail($id);
-        // echo '<pre>';
+        //   echo '<pre>';
         // print_r($realestate);
         // die();
         // dd($realestate);
         return view('edit' , compact('realestate'));
+
+        // $realestate=Realestate::find($id);
+        // $realestates= DB::table('realestates')->where('id', $id);
+        // echo '<pre>';
+        // $realestate=json_encode($realestates);
+        // $realestate=Realestate::findOrFail($id);
+        // echo '<pre>';
+        // print_r($REAL);
+        // die();
+        // dd($REAL);
+        // // return view('edit' , compact('realestate'));
+
+        // $realestate=Realestate::find($id);
+        // return view('edit' , compact('realestate'));
     }
 
     /**
@@ -144,12 +165,11 @@ class RealestateController extends Controller
 
     public function update(Request $request,  $id)
     {
-        
         $realestate=Realestate::find($id);
+        // $realestate=Realestate::findOrFail($id);
 
         $request->validate([
-            'location'  => 'required',
-            'city' => 'required',
+            'address'  => 'required',
             'floor' => 'required',
             'area' => 'required',
             'price' => 'required',
@@ -159,22 +179,45 @@ class RealestateController extends Controller
             'property_type' => 'required',
         ]);
 
-    
-        $realestate->location=$request->location;
-        $realestate->city=$request->city;
-        $realestate->floor=$request->floor;
-        $realestate->area=$request->area;
-        $realestate->price=$request->price;
-        $realestate->number_of_rooms=$request->number_of_rooms;
-        $realestate->number_of_path_rooms=$request->number_of_path_rooms;
-        $realestate->type=$request->type;
-        $realestate->property_type=$request->property_type;
+        $realestate->address  = $request->address;
+        $realestate->floor  = $request->floor;
+        $realestate->area  = $request->area;
+        $realestate->price  = $request->price;
+        $realestate->number_of_rooms  = $request->number_of_rooms;
+        $realestate->number_of_path_rooms  = $request->number_of_path_rooms;
+        $realestate->state  = $request->state;
+        $realestate->type  = $request->type;
+        $realestate->property_type  = $request->property_type;
+        $realestate->user_id = Auth::id();
+        $realestate->cities_id= $request->country;
 
         //  update upload images
-        $time = Carbon::now();
+          $time = Carbon::now();
 
         $format_time=$time->format('d-m-y').'_'.$time->format('H').'_'.$time->format('i').'_'.$time->format('m');
-        $des='/images/'.Auth::user()->name.'_'.$format_time;
+        // $des='/images/'.Auth::user()->name.'_'.Auth::id().'_'.$format_time;
+
+
+         $des=$realestate->image_path;
+
+          //   update cover image
+ 
+         if($request->hasFile("cover"))
+         {
+             $file=$request->file("cover");
+             // $image = Realestate::where('user_id', '=', Auth::user()->id)->get();
+             $image_name='cover' .'.'.$file->getClientOriginalExtension();
+             $old_image=$realestate->cover;
+    
+             Storage::disk('public_uploads')->delete($des.'/'.$old_image);
+              // if(Storage::disk('public_uploads')->exists($des.'/'.$old_image)){
+              //      Storage::disk('public_uploads')->delete($des.'/'.$old_image);
+              //     }else{
+              //       dd($des.'/'.$old_image);
+              //     }
+             $realestate->cover = $image_name;
+             $file->storeAs($des, $image_name);
+         }
 
 
          if($request->hasFile("image"))
@@ -188,7 +231,7 @@ class RealestateController extends Controller
                  $request['user_id']=$realestate->id;
                  $request['image']=$image_name;
                  $old_image=$realestate->image;
-                Storage::disk('public_uploads')->delete('public/app/images/'.$old_image);
+                 Storage::disk('public_uploads')->delete($des.'/'.$old_image);
                  $realestate->image = $image_name;
 
                  $files->storeAs($des,$filename);
@@ -197,21 +240,13 @@ class RealestateController extends Controller
              }
          }
          
-         //update cover image
- 
-         if($request->hasFile("cover"))
-         {
-             $file=$request->file("cover");
-             $image_name='cover' .'.'.$files->getClientOriginalExtension();
-             $old_image=$realestate->cover;
-             Storage::disk('public_uploads')->delete('public/app/images/'. $old_image);
-             $realestate->cover = $image_name;
-             $files->storeAs($des, $image_name);
-         }
+     
         $realestate->update();
-   
+    
+        // DB::table('realestate')->where('id',$id)->update($data);
         return redirect()->route('show')->with('success','property updated successfully');
 
+       
     }
 
     /**

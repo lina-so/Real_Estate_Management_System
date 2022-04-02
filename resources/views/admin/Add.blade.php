@@ -22,19 +22,27 @@
 			<div class="square" style="--i: 2;"></div>
 			<div class="square" style="--i: 3;"></div>
 			<div class="square" style="--i: 4;"></div> -->
+
 			<div class="container2">
 				<div class="form1">
 					<h2>Add Realestate</h2>
 					<form  action="/Add" method="POST" enctype="multipart/form-data">
                     @csrf
+					<div class="Box">
+						<select  name="country">
+							<option value="">Select city</option>
+							
+							@foreach ($cities as $city)
+								<option value="{{ $city->id }}">{{ $city->country }}</option>
+							@endforeach
+	
+						</select>
+                        </div>
 						<div class="Box">
-							<input type="text" placeholder="location" name="location">
+							<input type="text" placeholder="address" name="address">
 						</div>
 						<div class="Box">
 							<input type="Number" placeholder="floor" name="floor">
-						</div>
-						<div class="Box">
-							<input type="text" placeholder="City" name="city">
 						</div>
 						<div class="Box">
 							<input type="number" placeholder="Area" name="area">
@@ -49,15 +57,7 @@
 							<input type="number" placeholder="Number of PathRooms" name="number_of_path_rooms">
 						</div>
 
-                        <div class="Box">
-                            <select name="property_type">
-                                <option value="Villa">Villa</option>
-                                <option value="Flat">Flat</option>
-                                <option value="Shop">Shop</option>
-                                <option value="Land">Land</option>
-                            </select>
-                        </div>
-                        <div class="Box">
+						<div class="Box">
                             <select  name="state">
                                 <option value="Sale">Sale</option>
                                 <option value="Rent">Rent</option>
@@ -66,9 +66,18 @@
                         <div class="Box">
                             <select name="type">
                                 <option value="court">court</option>
-                                <option value="taboo">taboo</option>
+                                <option value="tabo">tabo</option>
                             </select>
                         </div>
+                        <div class="Box">
+                            <select name="property_type">
+                                <option value="Villa">Villa</option>
+                                <option value="Flat">Flat</option>
+                                <option value="Shop">Shop</option>
+                                <option value="Land">Land</option>
+                            </select>
+                        </div>
+                       
 						<div class="Box">
 							<label for="">Cover</label>
                             <input type="file" id="image" name="cover"  >  

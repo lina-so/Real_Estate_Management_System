@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Image;
 class Realestate extends Model
 {
+
     protected $fillable = [
-        'location', 'city', 'floor','area','price','number_of_rooms',
-        'number_of_path_rooms','cover','image'
+        'address', 'floor','area','price','number_of_rooms',
+        'number_of_path_rooms','cover','image','image_path',
     ];
 
     public function Purchases(){
@@ -23,6 +24,9 @@ class Realestate extends Model
         return $this->belongsTo('App\User' , 'user_id');
     }
 
+    public function city(){
+        return $this->belongsTo('App\City' , 'city_id');
+    }
 
 }
 

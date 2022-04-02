@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->enum('role' , ["admin" , "user" ])->default('user');
             $table->enum('type' , ["saler" , "buyer" ])->default('buyer');
             $table->boolean('active')->default('0');
+            $table->string('long')->nullable();
+            $table->string('lat')->nullable();
             $table->timestamps();
 
 

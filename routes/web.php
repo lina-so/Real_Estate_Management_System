@@ -13,17 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('show');
-// })->name('show');
+Route::get('/', function () {
+    return view('auth/register');
+})->name('register');
 
-Route::get('/', 'RealestateController@index')->name('show');
+Route::get('/show', 'RealestateController@index')->name('show');
 
 Auth::routes();
 
 //Add Realestate Routes
 Route::get('/Add', 'RealestateController@create')->name('Add-realestate');
 Route::post('/Add','RealestateController@store')->name('store-realestate');
+//city Route
+// Route::get('/Add', 'CityController@index')->name('city');
 
 //Edit realestate Routes
 Route::get('/edit/{id}', 'RealestateController@edit')->name('edit-realestate');

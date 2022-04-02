@@ -8,7 +8,8 @@ body
 {
 	/* overflow: hidden; */
 	/*background: linear-gradient(to right, #ff359b,#00d2ff,#fffd87);*/
-	background: linear-gradient(to right, #e06fa8,#79cadc,#f8f569);
+	/* background: linear-gradient(to right, #e06fa8,#79cadc,#f8f569); */
+	background: linear-gradient(to right, #462446,#b05f6d,#eb6b56,#ffc153);
 	background-repeat: no-repeat;
 	height: 10000px;
 	position: relative;
