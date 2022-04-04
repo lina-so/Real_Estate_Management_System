@@ -28,6 +28,15 @@ class Realestate extends Model
         return $this->belongsTo('App\City' , 'city_id');
     }
 
+    public function real_likes()
+    {
+        return $this->hasMany('App\Favoraite');
+    }
+    public function Users(){
+        return $this->belongsToMany(User::class , 'favoraites');
+    }
+
+
 }
 
 

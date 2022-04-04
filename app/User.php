@@ -59,9 +59,18 @@ class User extends Authenticatable
             return $this->hasMany('App\Desire' ,'user_id');
         
     }
+    public function real_likes()
+    {
+        return $this->hasMany('App\Favoraite');
+    }
 
-    // public function Realestates(){
-    //     return $this->belongsToMany('App\Realestate', 'Reserves', 'real_id', 'user_id'); 
+    // public function favoraites(){
+    //     return $this->belongsToMany('App\Favoraite', 'favoraites', 'real_id', 'user_id'); 
+    //  }
+
+     
+    // public function favoraiteHas($realId){
+    //     return self::favoraites()->where('priduct_id',$realId)->exists();
     //  }
 
     //  public function Realestatss(){

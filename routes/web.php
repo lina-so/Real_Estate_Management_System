@@ -43,6 +43,15 @@ Route::get('/details/{id}', 'ViewsController@details')->name('details');
 Route::get('/desire', 'DesireController@create')->name('Add-desire');
 Route::post('/desire','DesireController@store')->name('store-desire');
 
+//favoraite Route
+Route::get('liked/{id}','FavoraiteController@like');
+
+Route::get('/favoraite','FavoraiteController@index')->name('favoraite-show');
+// Route::post('/add-to-favoraite','FavoraiteController@store')->name('favoraite-store');
+
+// Route::delete('/favoraite/{realId}','FavoraiteController@destroy')->name('favoraite-destroy');
+// Route::get('/favoraite/realestates','FavoraiteController@index')->name('favoraite-index');
+
 /* view composer */
 View::composer(['*'],function($view)
 {

@@ -1,8 +1,13 @@
 
 @extends('layouts.app')
 
+@if (session()->has('mess'))
+<h3>{{session()->get('mess')}}</h3>    
+@endif
 
 @section('content')
+
+
 
     @foreach($reals as $real)
             <div class="container1 item">
@@ -30,9 +35,40 @@
                     <div class="main-white-button">
                         <a href="contact.html"><i class="fa fa-eye"></i>View Details</a>
                     </div>
+
+                    <div class="images">
+                        <img src="" alt="">
+                        <a href="{{url('liked/'.$real->id.'/')}}" class="addToFavoraite"><i class="fa fa-heart" data-product-id="{{$real->id}}"></i>Add To Favoraite</a>
+                    </div>
+
                     </div>
                 </div>
             </div>
     @endforeach
 
+@endsection
+
+
+
+@section('scripts')
+    <script>
+        $(document).on('click','.addToFavoraite',function(e){
+            e.preventDefault();
+
+            @guest()
+                $('.not-looggedin-model').css('diplay','blok');
+            @endguest
+            $.ajax({
+                type:'post',
+                url:"{{url('liked/'.$real->id.'/')}}",
+                data:{
+                    'realId':$(this).attr('data-product-id'),
+                },
+                success:function($data)
+                {
+
+                }
+            });
+        });
+    </script>
 @endsection

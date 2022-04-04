@@ -219,7 +219,7 @@ class RealestateController extends Controller
              $file->storeAs($des, $image_name);
          }
 
-
+         //update images
          if($request->hasFile("image"))
          {
              $file=$request->file("image");

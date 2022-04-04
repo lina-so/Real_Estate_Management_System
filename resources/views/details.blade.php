@@ -8,7 +8,7 @@
                     <div class="content-header">
                         <div class="content-header-left">
                             <h2>  {{$details->property_type}}</h2>
-                            <i></i><p> {{$details->location}}</p>
+                            <i></i><p> {{$details->address}}</p>
                             <ul>
                                 <li> {{$details->number_of_rooms}} Rooms</li>
                                 <li> {{$details->number_of_path_rooms}} pathrooms</li>
@@ -25,7 +25,7 @@
                 <div class="content-body">
                     <div class="images">
                         <img src="" alt="">
-                        <a href=""><button><i></i>Add To Favoraite</button></a>
+                        <a href="{{url('liked/'.$details->id.'/')}}" class="addToFavoraite"><i class="fa fa-heart" data-product-id="{{$details->id}}"></i>Add To Favoraite</a>
                     </div>
                     <div class="agent-info">
                         <h3>Contact Listing Agent</h3>
@@ -86,7 +86,32 @@
                     </table>
                 </div>
             </div>
- 
+
+ @include('not-logged')
+       
 
 @endsection
 
+
+@section('scripts')
+    <script>
+        $(document).on('click','.addToFavoraite',function(e){
+            e.preventDefault();
+
+            @guest()
+                $('.not-looggedin-model').css('diplay','blok');
+            @endguest
+            $.ajax({
+                type:'post',
+                url:"{{url('liked/'.$details->id.'/')}}",
+                data:{
+                    'realId':$(this).attr('data-product-id'),
+                },
+                success:function(response)
+                {
+                    swal(response.status);
+                }
+            });
+        });
+    </script>
+@endsection
