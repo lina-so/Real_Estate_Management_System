@@ -102,8 +102,13 @@ class FavoraiteController extends Controller
      * @param  \App\Favoraite  $favoraite
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Favoraite $favoraite)
+    public function destroy($id)
     {
-        //
+        // $favoraite=Favoraite::find($id);
+        $user_id=Auth::id();
+        $favoraite=DB::delete('delete from favoraites where real_id = ? and user_id = ?',[$id , $user_id]);
+        // dd($user_id);
+        // $favoraite->delete();
+        return redirect()->route('show')->with('success','property deleted successfully');
     }
 }

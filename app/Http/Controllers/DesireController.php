@@ -38,10 +38,8 @@ class DesireController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
         $desire = new  Desire;
-        $desire->location  = $request->location;
-        $desire->city  = $request->city;
+        $desire->address  = $request->address;
         $desire->floor  = $request->floor;
         $desire->area  = $request->area;
         $desire->price  = $request->price;
@@ -51,10 +49,25 @@ class DesireController extends Controller
         $desire->type  = $request->type;
         $desire->property_type  = $request->property_type;
         $desire->user_id = Auth::id();
-        $desire->save();
+        $desire->cities_id= $request->country;
+
+        // // return $request;
+        // $desire = new  Desire;
+        // $desire->location  = $request->location;
+        // $desire->city  = $request->city;
+        // $desire->floor  = $request->floor;
+        // $desire->area  = $request->area;
+        // $desire->price  = $request->price;
+        // $desire->number_of_rooms  = $request->number_of_rooms;
+        // $desire->number_of_path_rooms  = $request->number_of_path_rooms;
+        // $desire->state  = $request->state;
+        // $desire->type  = $request->type;
+        // $desire->property_type  = $request->property_type;
+        // $desire->user_id = Auth::id();
+        // $desire->save();
 
         // $desire->Desires()->attach($request);
-        // $desire->save();
+        $desire->save();
         return redirect()->route('show')->with('success','Desire Added successfully');
     }
 

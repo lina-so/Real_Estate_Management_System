@@ -13,10 +13,10 @@
             <div class="container1 item">
                 <div class="listing-item">
                     <div class="left-image">
-                    <a href="#"><img src="{{asset('storage/app/images/'.$real->userFolderName . '/cover.jpg')}}" alt=""></a>
+                    <img src="{{asset('storage/٢٠٢١٠٤٠١_١٦٥٤٣١.jpg')}}" alt="">
                     </div>
                     <div class="right-content align-self-center">
-                    <a href="#"><h4>{{$real->property_type }}</h4></a>
+                    <a href="#"><h4>{{ __('public.' . $real->property_type) }}</h4></a>
                     <h6>by: {{$real->user_id}}</h6>
                     <ul class="rate">
                         <li><i class="fa fa-star-o"></i></li>
@@ -26,19 +26,19 @@
                         <li><i class="fa fa-star-o"></i></li>
                         <li>(24) Reviews</li>
                     </ul>
-                    <span class="price"><div class="icon"><img src="images/listing-icon-01.png" alt=""></div> ${{$real->price}}/ month with taxes</span>
-                    <span class="details">Details: <em>{{$real->area}} sq ft</em></span>
+                    <span class="price"><div class="icon"><img src="images/listing-icon-01.png" alt=""></div> @lang('public.price') : ${{$real->price}} </span>
+                    <span class="details">@lang('public.Area') :  <em>{{$real->area}}</em> m2</span>
                     <ul class="info">
-                        <li><img src="images/listing-icon-02.png" alt=""> {{$real->number_of_rooms}} Bedrooms</li>
-                        <li><img src="images/listing-icon-03.png" alt=""> {{$real->number_of_path_rooms}} Bathrooms</li>
+                        <li><img src="images/listing-icon-02.png" alt=""> {{$real->number_of_rooms}} @lang('public.bedroom')</li>
+                        <li><img src="images/listing-icon-03.png" alt=""> {{$real->number_of_path_rooms}} @lang('public.pathrooms')</li>
                     </ul>
                     <div class="main-white-button">
-                        <a href="contact.html"><i class="fa fa-eye"></i>View Details</a>
+                    <a href="{{route('details',$real->id)}}"><i class="fa fa-eye"></i>@lang('public.view') @lang('public.details')</a>
                     </div>
 
-                    <div class="images">
-                        <img src="" alt="">
-                        <a href="{{url('liked/'.$real->id.'/')}}" class="addToFavoraite"><i class="fa fa-heart" data-product-id="{{$real->id}}"></i>Add To Favoraite</a>
+                    <div class="">
+                        <!-- <img src="{{asset('/storage/app/images/loloo_4_07-04-22_15_50_04/cover.jpg')}}" alt=""> -->
+                        <a href="{{url('liked/'.$real->id.'/')}}" class="addToFavoraite"><i class="fa fa-heart" data-product-id="{{$real->id}}"></i>@lang('public.add to favoraite')</a>
                     </div>
 
                     </div>

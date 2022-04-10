@@ -32,9 +32,15 @@ class Realestate extends Model
     {
         return $this->hasMany('App\Favoraite');
     }
-    public function Users(){
-        return $this->belongsToMany(User::class , 'favoraites');
+
+    public function real_served()
+    {
+        return $this->hasMany('App\Reserve');
     }
+
+    // public function Users(){
+    //     return $this->belongsToMany(User::class , 'favoraites');
+    // }
 
 
 }

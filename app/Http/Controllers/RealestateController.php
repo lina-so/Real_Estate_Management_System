@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Realestate;
 use App\User;
 use Illuminate\Http\Request;
@@ -107,7 +106,7 @@ class RealestateController extends Controller
         $real->image_path=$des;
 
         $real->save();
-        return redirect()->route('show')->with(['userFolderName' => $des] );
+        return redirect()->route('show');
 
     }
 
@@ -129,28 +128,19 @@ class RealestateController extends Controller
      * @param  \App\Realestate  $realestate
      * @return \Illuminate\Http\Response
      */
-    public function edit(Realestate $id)
+    public function edit($id)
     {
-        $realestate=Realestate::find($id);
+        // $realestate=Realestate::find($id);
+        $r_id=$id;
+        // $id = Realestate::select('id')->first();
+        $realestate=DB::select('select * from realestates where id = ?',[$r_id]);
+        // $realestate = Realestate::where('id',$id)->get();
         //   echo '<pre>';
         // print_r($realestate);
         // die();
         // dd($realestate);
         return view('edit' , compact('realestate'));
 
-        // $realestate=Realestate::find($id);
-        // $realestates= DB::table('realestates')->where('id', $id);
-        // echo '<pre>';
-        // $realestate=json_encode($realestates);
-        // $realestate=Realestate::findOrFail($id);
-        // echo '<pre>';
-        // print_r($REAL);
-        // die();
-        // dd($REAL);
-        // // return view('edit' , compact('realestate'));
-
-        // $realestate=Realestate::find($id);
-        // return view('edit' , compact('realestate'));
     }
 
     /**
@@ -231,10 +221,12 @@ class RealestateController extends Controller
                  $request['user_id']=$realestate->id;
                  $request['image']=$image_name;
                  $old_image=$realestate->image;
-                 Storage::disk('public_uploads')->delete($des.'/'.$old_image);
+                //  Storage::disk('public_uploads')->delete($des.'/'.$old_image);
+                Storage::delete($old_image);
+
                  $realestate->image = $image_name;
 
-                 $files->storeAs($des,$filename);
+                 $files->storeAs($des,$image_name);
  
  
              }
@@ -256,8 +248,9 @@ class RealestateController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(Realestate $realestate)
+    public function destroy($id)
     {
+        $realestate=Realestate::find($id);
         $realestate->delete();
         return redirect()->route('show')->with('success','property deleted successfully');
     }

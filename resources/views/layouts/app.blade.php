@@ -61,6 +61,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                                     
                                         {{ __('Logout') }}
                                     </a>
 
@@ -71,17 +72,28 @@
                             </li>
                         @endguest
 
-                        <a href=""> <li>E/N</li></a>
-                        <a href=""><li>more
+                        <a href=""> <li>@lang('public.laravel')</li></a>
+                        <a href=""><li>@lang('public.more')
                             <ul>
-                               <a href="{{ route('Add-realestate') }}"><li>add realestate</li></a>
-                               <a href="{{ route('your_real', $user->id) }}"><li>show your realestate</li></a>
-                               <a href=""><li>Rent/Sale</li></a>
+                               <a href="{{ route('Add-realestate') }}"><li>@lang('public.add realestate')</li></a>
+                               <a href="{{ route('your_real', $user->id) }}"><li>@lang('public.show your realestate')</li></a>
+                               <a href="{{ route('favoraite-show') }}"><li>@lang('public.Your Favoraite')</li></a>
                             </ul>
                         </li>
                         </a>
                     </ul>
                 </div>
+
+                <ul class="navbar-nav">
+                    <li class="navbar-item">
+                        <a href="#" class="nav-link" id="navbarDropdown" data-toggle="dropdown">@lang('public.Language')</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a href="locale/en" class="dropdown-item">@lang('public.English')</a>
+                            <a href="locale/ar" class="dropdown-item">@lang('public.Arabic')</a>
+                        </div>
+                    </li>
+                </ul>
+
             </div>
         </nav>
 
@@ -89,5 +101,7 @@
             @yield('content')
         </main>
     </div>
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

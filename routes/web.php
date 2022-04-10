@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth/register');
-})->name('register');
+  // Route::get('/', function () {
+  //   // Alert::success('Success Title', 'Success Message');
+  //   // alert()->info('InfoAlert','Lorem ipsum dolor sit amet.');
 
+  //     return view('auth/register');
+  // })->name('register');
+
+Route::get('/', 'RealestateController@index')->name('show');
+
+//Localization Route
+Route::get("locale/{lange}", 'LocalizationController@setLang');
+
+//show Route
 Route::get('/show', 'RealestateController@index')->name('show');
 
 Auth::routes();
@@ -24,6 +36,7 @@ Auth::routes();
 //Add Realestate Routes
 Route::get('/Add', 'RealestateController@create')->name('Add-realestate');
 Route::post('/Add','RealestateController@store')->name('store-realestate');
+
 //city Route
 // Route::get('/Add', 'CityController@index')->name('city');
 
@@ -47,10 +60,17 @@ Route::post('/desire','DesireController@store')->name('store-desire');
 Route::get('liked/{id}','FavoraiteController@like');
 
 Route::get('/favoraite','FavoraiteController@index')->name('favoraite-show');
-// Route::post('/add-to-favoraite','FavoraiteController@store')->name('favoraite-store');
 
-// Route::delete('/favoraite/{realId}','FavoraiteController@destroy')->name('favoraite-destroy');
-// Route::get('/favoraite/realestates','FavoraiteController@index')->name('favoraite-index');
+//Reserve Route
+Route::get('reserve/{id}','ReserveController@reserve');
+
+Route::get('/reserve','ReserveController@index')->name('reserve-show');
+
+//delete 
+Route::delete('/delete/{id}','RealestateController@destroy')->name('delete');
+
+//delete 
+Route::delete('/deletefav/{id}','FavoraiteController@destroy')->name('delete-favoraite');
 
 /* view composer */
 View::composer(['*'],function($view)
@@ -58,3 +78,7 @@ View::composer(['*'],function($view)
   $user = Auth::user();
   $view->with('user',$user);
 });
+
+
+//display image store
+Route::get('storage/app/images/loloo_4_07-04-22_15_50_04/{filename}', 'ViewsControllers@getPubliclyStorgeFile')->name('displayImage');

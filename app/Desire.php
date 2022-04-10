@@ -14,6 +14,10 @@ class Desire extends Model
     public function User(){
         return $this->belongsTo('App\User' , 'user_id');
     }
+    
+    public function city(){
+        return $this->belongsTo('App\City' , 'city_id');
+    }
 
 
 

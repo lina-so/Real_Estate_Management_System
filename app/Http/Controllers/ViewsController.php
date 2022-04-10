@@ -30,4 +30,25 @@ class ViewsController extends Controller
         return view('details' , compact('details'));
     }
 
+    
+    public function getPubliclyStorgeFile($filename)
+
+    {
+        $path = storage_path('app/images/loloo_4_07-04-22_15_50_04/'. $filename);
+    
+        if (!File::exists($path)) {
+            abort(404);
+        }
+    
+        $file = File::get($path);
+        $type = File::mimeType($path);
+    
+        $response = Response::make($file, 200);
+    
+        $response->header("Content-Type", $type);
+    
+        return $response;
+    
+    }	
+
 }

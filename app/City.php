@@ -15,5 +15,11 @@ class City extends Model
      
         return $this->hasMany('App\Realestate' ,'city_id');
     
-}
+    }
+
+    public function Desires(){
+     
+        return $this->hasMany('App\Desire' ,'city_id');
+    
+    }
 }

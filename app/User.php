@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Favoraite');
     }
 
+    public function real_served()
+    {
+        return $this->hasMany('App\Reserve');
+    }
+
     // public function favoraites(){
     //     return $this->belongsToMany('App\Favoraite', 'favoraites', 'real_id', 'user_id'); 
     //  }
